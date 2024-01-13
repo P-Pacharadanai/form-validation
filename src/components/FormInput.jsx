@@ -1,19 +1,24 @@
 const FormInput = (props) => {
-  return (
-    <div className="flex flex-col ">
-      <label htmlFor={props.forToId} className="text-lg font-bold">
-        {props.label}
-      </label>
-      <input
-        type={props.type}
-        id={props.forToId}
-        className="text-xl px-2 border-2 rounded-md"
-        onChange={(e) => props.setFormDataState({ ...props.formDataState, [props.inputData]: e.target.value })}
-        value={props.formDataState[props.inputData]}
-      />
-      {props.errorStatusState[props.inputData] && <small className="text-red-500">{props.errorMessage}</small>}
-    </div>
-  );
+    const { label, forId, type, name, inputData, formDataState, onChangeHandler, errorMessage, errorStatusState } =
+        props;
+    return (
+        <div className="flex flex-col">
+            <label htmlFor={forId} className="text-lg font-bold">
+                {label}
+            </label>
+            <input
+                className={`text-xl px-2 py-1 border rounded-sm bg-slate-50 ${
+                    errorStatusState[inputData] ? "border-red-500" : "border-gray-200"
+                }`}
+                type={type}
+                id={forId}
+                name={name}
+                onChange={onChangeHandler}
+                value={formDataState[inputData]}
+            />
+            {errorStatusState[inputData] && <small className="text-red-500">{errorMessage}</small>}
+        </div>
+    );
 };
 
 export default FormInput;
